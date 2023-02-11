@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    maven { url "https://maven.aliyun.com/repository/google" }
+    maven { url "https://maven.aliyun.com/repository/jcenter" }
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+}
+
+dependencies {
+    implementation 'org.apache.poi:poi:3.15'
+    implementation 'org.apache.poi:poi-ooxml:3.15'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifestContentCharset 'utf-8'
+    metadataCharset 'utf-8'
+    String runtimePath = ''
+    configurations.runtime. each {runtimePath = runtimePath + " lib//" +it.name} // 本地lib
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } // implementation 相关的引入解压并打包入新的jar中
+    }
+//    from {
+//        configurations.compile.collect {
+//            it.isDirectory() ? it : zipTree(it)
+//        }
+//    }
+    manifest {
+        attributes 'Main-Class' : 'com.lm.tool.MainHandler' // 主类类名
+        attributes 'Class-Path' : runtimePath
+    }
+    archiveFileName = 'addressTxtToExcel.jar'
+}
