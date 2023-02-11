@@ -24,10 +24,10 @@ public class Reader {
                 e.receiver = readField();
                 e.phone = readField();
                 e.address = readField();
-                readField();
-                readField();
+                e.datetime = readField();
+                e.months = Integer.parseInt(readField());
                 list.add(e);
-                System.out.printf("%d \t%s \t%s \t%s \t%s\n", e.uid, e.uname, e.receiver, e.phone, e.address);
+                System.out.printf("%d \t%s \t%s \t%s \t%s \t%s \t%d\n", e.uid, e.uname, e.receiver, e.phone, e.address, e.datetime, e.months);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -41,6 +41,8 @@ public class FileUtil {
             row.createCell(colnum++).setCellValue("收件人");
             row.createCell(colnum++).setCellValue("电话");
             row.createCell(colnum++).setCellValue("地址");
+            row.createCell(colnum++).setCellValue("上舰时间");
+            row.createCell(colnum++).setCellValue("上舰月数");
         }
         CellStyle cellStyleDate = wb.createCellStyle();
         cellStyleDate.setDataFormat(HSSFDataFormat.getBuiltinFormat("0"));
@@ -53,6 +55,8 @@ public class FileUtil {
             row.createCell(colnum++).setCellValue(e.receiver);
             row.createCell(colnum++).setCellValue(e.phone);
             row.createCell(colnum++).setCellValue(e.address);
+            row.createCell(colnum++).setCellValue(e.datetime);
+            row.createCell(colnum++).setCellValue(e.months);
         }
         sheet.createFreezePane(0, 1);
         wb.write(fos);
